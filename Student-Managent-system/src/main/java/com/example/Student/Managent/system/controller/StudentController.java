@@ -3,28 +3,47 @@ package com.example.Student.Managent.system.controller;
 import com.example.Student.Managent.system.entity.Student;
 import com.example.Student.Managent.system.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class StudentController {
-@Autowired
+    @Autowired
     private StudentService studentService;
-@GetMapping("Students")
-    public List<Student> getAllStudent() {
-        return studentService.getAllStudents();
+// show Student homePage
+    @GetMapping("/students")
+    public String viewHomePage(Model model) {
+        model.addAttribute("students",studentService.getAllStudents());
+        return "studentIndex";
     }
-    @PostMapping("/Students")
-    public String postStudent(@RequestBody Student student) {
-        return studentService.postStudent(student);
+
+    @GetMapping("/students/add")
+    public String addNewStudent(Model model) {
+        Student student = new Student();
+        model.addAttribute("student",student);
+        return "newStudent";
     }
-    @PutMapping("/Students/{id}")
-    public String updateStudent(@RequestBody Student student,@PathVariable("id") Long studentId){
-    return studentService.updateStudent(student,studentId);
+
+    @PostMapping("/students/save")
+    public String saveStudent(@ModelAttribute("student") Student student) {
+        studentService.saveStudent(student);
+        return "redirect:/students";
     }
-    @DeleteMapping("Students/{id}")
-    public String deleteStudent(@PathVariable("id") Long studentId) {
-    return studentService.deleteStudent(studentId);
+
+    @GetMapping("/students/edit/{studentId}")
+    public String updateForm(@PathVariable("studentId") Long studentId,Model model) {
+        Student student = studentService.getById(studentId);
+        model.addAttribute("student",student);
+        return "updateStudent";
     }
+
+    @GetMapping("/students/delete/{studentId}")
+    public String deleteStudent(@PathVariable("studentId") Long studentId) {
+        studentService.deleteStudent(studentId);
+        return "redirect:/students";
+    }
+
 }
