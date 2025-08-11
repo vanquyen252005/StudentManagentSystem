@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Student</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Create New Student</h2>
+
+    <!-- FORM -->
+    <form th:action="@{/students/save}" th:object="${student}" method="post">
+
+        <!-- First Name -->
+        <div class="form-group">
+            <label>First Name</label>
+            <input type="text" th:field="*{firstName}" class="form-control" placeholder="Enter first name" required>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+            <label>Last Name</label>
+            <label>
+                <input type="text" th:field="*{lastName}" class="form-control" placeholder="Enter last name" required>
+            </label>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label>Email</label>
+            <label>
+                <input type="email" th:field="*{email}" class="form-control" placeholder="Enter email" required>
+            </label>
+        </div>
+
+        <div class = "form-group">
+            <label>Student_id</label>
+            <label>
+                <input type="text" th:field ="*{student_id}" class = "form-control" placeholder="Enter_Student_ID" required>
+            </label>
+        </div>
+        <div class = "form-group">
+            <label >Birth_day</label>
+            <label>
+                <input type="date" th:field ="*{birthday}" class = "form-control" placeholder="Enter_Birthday" required>
+            </label>
+        </div>
+
+        <div class = "form-group">
+            <label>HomeTown</label>
+            <label>
+                <input type="text" th:field ="*{homeTown}" class = "form-control" placeholder="Enter_HomeTown" required>
+            </label>
+        </div>
+
+        <!-- Buttons -->
+        <button type="submit" class="btn btn-success">Save</button>
+        <a th:href="@{/students}" class="btn btn-secondary ml-2">Cancel</a>
+
+    </form>
+</div>
+</body>
+</html>
