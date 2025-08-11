@@ -21,6 +21,9 @@
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Student_Id</th>
+            <th>Birthday</th>
+            <th>HomeTown</th>
             <th>Email</th>
             <th>Actions</th>
         </tr>
@@ -28,10 +31,13 @@
         <tbody>
         <!-- Loop through student list -->
         <tr th:each="student : ${students}">
-            <td th:text="${student.id}">1</td>
-            <td th:text="${student.firstName}">John</td>
-            <td th:text="${student.lastName}">Doe</td>
-            <td th:text="${student.email}">john.doe@example.com</td>
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:text="${student.Student_id}"></td>
+            <td th:text="${student.Birthday}"></td>
+            <td th:text="${student.HomeTown}"></td>
+            <td th:text="${student.email}"></td>
             <td>
                 <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-warning btn-sm">Update</a>
                 <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger btn-sm"

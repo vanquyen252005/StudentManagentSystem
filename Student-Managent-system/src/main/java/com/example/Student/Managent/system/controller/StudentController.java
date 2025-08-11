@@ -17,14 +17,14 @@ public class StudentController {
     @GetMapping("/students")
     public String viewHomePage(Model model) {
         model.addAttribute("students",studentService.getAllStudents());
-        return "studentIndex";
+        return "Student/studentIndex";
     }
 
     @GetMapping("/students/add")
     public String addNewStudent(Model model) {
         Student student = new Student();
         model.addAttribute("student",student);
-        return "newStudent";
+        return "Student/newStudent";
     }
 
     @PostMapping("/students/save")
@@ -37,7 +37,7 @@ public class StudentController {
     public String updateForm(@PathVariable("studentId") Long studentId,Model model) {
         Student student = studentService.getById(studentId);
         model.addAttribute("student",student);
-        return "updateStudent";
+        return "Student/updateStudent";
     }
 
     @GetMapping("/students/delete/{studentId}")
