@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Classroom  Form</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 th:text="${classroom.id != null ? 'Edit Classroom' : 'Add New Classroom'}"></h2>
+
+    <form th:action="@{/classrooms/save}" th:object="${classroom}" method="post">
+
+        <!-- Hidden field lưu ID khi chỉnh sửa -->
+        <input type="hidden" th:field="*{id}">
+
+        <!-- Department Name -->
+        <div class="form-group">
+            <label for="name">Classroom Name</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Enter classroom name" required>
+        </div>
+
+        <!-- Department Code -->
+        <div class="form-group">
+            <label for="code">Classroom Code</label>
+            <input type="text" id="code" th:field="*{code}" class="form-control" placeholder="Enter classroom code" required>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label for="number_of_student">Number Of Student</label>
+            <textarea id="number_of_student" th:field="*{number_of_student}" class="form-control" placeholder="Enter number_of_student" required></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-success">Save</button>
+        <a th:href="@{/classrooms}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+</body>
+</html>

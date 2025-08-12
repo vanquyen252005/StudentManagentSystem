@@ -35,7 +35,7 @@ public class StudentController {
 
     @GetMapping("/students/edit/{studentId}")
     public String updateForm(@PathVariable("studentId") Long studentId,Model model) {
-        Student student = studentService.getById(studentId);
+        Student student = studentService.getStudentById(studentId);
         model.addAttribute("student",student);
         return "Student/updateStudent";
     }

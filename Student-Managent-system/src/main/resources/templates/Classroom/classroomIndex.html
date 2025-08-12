@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Class List in Department</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2 class="mb-4">
+     Classroom List
+  </h2>
+  <a th:href="@{classrooms/add}" class="btn btn-success mb-3">Add new Classroom</a>
+
+  <!-- Table -->
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Class Name</th>
+      <th>Class Code</th>
+      <th>Number of Student</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="classroom : ${classrooms}">
+      <td th:text="${classroom.id}"></td>
+      <td th:text="${classroom.name}"></td>
+      <td th:text="${classroom.code}"></td>
+      <td th:text="${classroom.number_of_student}"></td>
+      <td>
+        <a th:href="@{/classrooms/{classroomId}/students(classroomId=${classroom.id})}"
+           class="btn btn-info btn-sm">View Profile</a>
+        <a th:href="@{/classrooms/edit/{classroomId}(classroomId=${classroom.id})}" class="btn btn-outline-primary">Edit</a>
+        <a th:href="@{/classrooms/delete/{classroomId}(classroomId=${classroom.id})}" class="btn btn-outline-primary">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

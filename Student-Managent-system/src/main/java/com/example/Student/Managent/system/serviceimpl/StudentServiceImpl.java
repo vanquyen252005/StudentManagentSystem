@@ -27,7 +27,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getById(Long studentId) {
+    public Student getStudentById(Long studentId) {
         Optional<Student> optional = studentRepository.findById(studentId);
         if(optional.isPresent()) {
             return optional.get();
