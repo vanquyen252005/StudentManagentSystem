@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,4 +26,6 @@ public class Student {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
     private String homeTown;
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Registration> registrations;
 }

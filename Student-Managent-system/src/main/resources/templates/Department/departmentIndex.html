@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Departments</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Department List</h2>
+
+    <!-- Nút thêm mới khoa -->
+    <a class="btn btn-primary mb-3" th:href="@{/departments/add}">Add New Department</a>
+
+    <!-- Bảng danh sách khoa -->
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Department Name</th>
+            <th>Department Code</th>
+            <th>Description</th>
+            <th> Phone</th>
+            <th> Email</th>
+            <th>Location</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="department : ${departments}">
+            <td th:text="${department.id}"></td>
+            <td th:text="${department.name}"></td>
+            <td th:text="${department.code}"></td>
+            <td th:text="${department.description}"></td>
+            <td th:text="${department.phone}"></td>
+            <td th:text="${department.email}"></td>
+            <td th:text="${department.officeLocation}"></td>
+            <td>
+                <!-- Link xem các lớp trong khoa -->
+                <a th:href="@{/departments/{departmentId}/classes(departmentId=${department.id})}"
+                   class="btn btn-info btn-sm">View Classes</a>
+
+                <!-- Link sửa -->
+                <a th:href="@{/departments/edit/{departmentId}(departmentId=${department.id})}"
+                   class="btn btn-warning btn-sm">Edit</a>
+
+                <!-- Link xóa -->
+                <a th:href="@{/departments/delete/{id}(id=${department.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure to delete this department?');">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
