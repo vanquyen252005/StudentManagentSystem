@@ -11,7 +11,7 @@
 <div class="container mt-5">
     <h2 th:text="${department.id != null ? 'Edit Department' : 'Add New Department'}"></h2>
 
-    <form th:action="@{/departments/save}" th:object="${department}" method="post">
+    <form th:action="@{/api/departments/save}" th:object="${department}" method="post">
 
         <!-- Hidden field lưu ID khi chỉnh sửa -->
         <input type="hidden" th:field="*{id}">
@@ -48,7 +48,7 @@
         </div>
         <!-- Submit -->
         <button type="submit" class="btn btn-success">Save</button>
-        <a th:href="@{/departments}" class="btn btn-secondary">Cancel</a>
+        <a th:href="@{/api/departments}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 
