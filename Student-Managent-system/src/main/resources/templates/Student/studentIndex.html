@@ -1,52 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Student List</title>
     <!-- Bootstrap CSS (CDN) -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
 
-<div class="container mt-5">
-    <h2 class="mb-4">Student List</h2>
+    <div class="container mt-5">
+        <h2 class="mb-4">Student List in <span th:text="${classroom.name}"></span></h2>
 
-    <!-- Add New Button -->
-    <a class="btn btn-primary mb-3" th:href="@{/students/add}">Add New</a>
+        <!-- Add New Button -->
+        <a class="btn btn-primary mb-3" th:href="@{/api/students/{classId}/add(classId=${classroom.id})}">Add New</a>
 
-    <!-- Table -->
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Student_Id</th>
-            <th>Birthday</th>
-            <th>HomeTown</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Loop through student list -->
-        <tr th:each="student : ${students}">
-            <td th:text="${student.id}"></td>
-            <td th:text="${student.firstName}"></td>
-            <td th:text="${student.lastName}"></td>
-            <td th:text="${student.Student_id}"></td>
-            <td th:text="${student.Birthday}"></td>
-            <td th:text="${student.HomeTown}"></td>
-            <td th:text="${student.email}"></td>
-            <td>
-                <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-warning btn-sm">Update</a>
-                <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger btn-sm"
-                   onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+        <!-- Table -->
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>STT</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Student_Id</th>
+                    <th>Birthday</th>
+                    <th>HomeTown</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through student list -->
+                <tr th:each="student,stat : ${students}">
+                    <td th:text="${stat.index + 1}"></td>
+                    <td th:text="${student.firstName}"></td>
+                    <td th:text="${student.lastName}"></td>
+                    <td th:text="${student.student_id}"></td>
+                    <td th:text="${student.birthday}"></td>
+                    <td th:text="${student.homeTown}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td>
+                        <a th:href="@{/api/students/{classroomId}/{id}/edit(classroomId=${classroom.id}, id=${student.id})}"
+                            class="btn btn-warning btn-sm">Update</a>
+                        <a th:href="@{/api/students/{classroomId}/{id}/delete(classroomId=${classroom.id}, id=${student.id})}"
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>    
+    </div>
 
 </body>
+
 </html>

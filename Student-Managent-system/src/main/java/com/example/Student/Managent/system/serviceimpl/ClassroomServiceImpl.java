@@ -35,7 +35,7 @@ public class ClassroomServiceImpl implements ClassroomService {
     }
 
     @Override
-    public void deleteClassroom(Long classroomId) {
+    public void deleteClassroomByClassId(Long classroomId) {
     classroomRepository.deleteById(classroomId);
     }
 

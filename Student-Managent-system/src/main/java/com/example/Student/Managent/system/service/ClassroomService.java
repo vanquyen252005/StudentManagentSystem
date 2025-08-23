@@ -8,6 +8,6 @@ public interface ClassroomService {
     public List<Classroom> getAllClassrooms();
     public void saveClassroom(Classroom classroom);
     public Classroom getClassroomById(Long classroomId);
-    public void deleteClassroom(Long classroomId);
+    public void deleteClassroomByClassId(Long classroomId);
     public List<Classroom> getClassesByDepartmentId(Long departmentId);
 }
