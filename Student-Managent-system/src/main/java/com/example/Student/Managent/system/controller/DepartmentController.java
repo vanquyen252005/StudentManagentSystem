@@ -1,10 +1,14 @@
 package com.example.Student.Managent.system.controller;
 
 import com.example.Student.Managent.system.entity.Department;
+import com.example.Student.Managent.system.exception.DepartmentAlreadyExistException;
+import com.example.Student.Managent.system.exception.ErrorRespone;
+import com.example.Student.Managent.system.exception.NoSuchDepartmentExistsException;
 import com.example.Student.Managent.system.entity.Classroom;
 import com.example.Student.Managent.system.service.DepartmentService;
 import com.example.Student.Managent.system.service.ClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/departments")
+@RequestMapping("/api/departments")
 public class DepartmentController {
 
     @Autowired
@@ -44,7 +48,7 @@ public class DepartmentController {
     }
 
     // Form sửa khoa
-    @GetMapping("/edit/{departmentId}")
+    @GetMapping("/{departmentId}/edit")
     public String editDepartmentForm(@PathVariable("departmentId") Long departmentId, Model model) {
         Department department = departmentService.getDepartmentById(departmentId);
         model.addAttribute("department", department);
@@ -52,7 +56,7 @@ public class DepartmentController {
     }
 
     // Xóa khoa
-    @GetMapping("/delete/{departmentId}")
+    @GetMapping("/{departmentId}/delete")
     public String deleteDepartment(@PathVariable("departmentId") Long departmentId) {
         departmentService.deleteDepartment(departmentId);
         return "redirect:/departments";
@@ -62,11 +66,23 @@ public class DepartmentController {
     @GetMapping("/{departmentId}/classes")
     public String viewClassesInDepartment(@PathVariable("departmentId") Long departmentId, Model model) {
         Department department = departmentService.getDepartmentById(departmentId);
-        List<Classroom> classes =classroomService.getClassesByDepartmentId(departmentId);
+        List<Classroom> classes = classroomService.getClassesByDepartmentId(departmentId);
 
         model.addAttribute("department", department);
         model.addAttribute("classes", classes);
 
         return "Classroom/classroomIndex";
+    }
+
+    @ExceptionHandler(NoSuchDepartmentExistsException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorRespone handleDepartmentNotFound(NoSuchDepartmentExistsException ex) {
+        return new ErrorRespone(HttpStatus.NOT_FOUND.value(), "Department not found");
+    }
+
+    @ExceptionHandler(DepartmentAlreadyExistException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorRespone handleDepartmentAlreadyExists(DepartmentAlreadyExistException ex) {
+        return new ErrorRespone(HttpStatus.CONFLICT.value(), "Department already exists");
     }
 }

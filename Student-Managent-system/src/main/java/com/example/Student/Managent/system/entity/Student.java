@@ -2,11 +2,9 @@ package com.example.Student.Managent.system.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -28,4 +26,7 @@ public class Student {
     private String homeTown;
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Registration> registrations;
+    @ManyToOne
+    @JoinColumn(name = "classroom_id", nullable = false)
+    private Classroom classroom;
 }

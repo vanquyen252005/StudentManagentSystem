@@ -12,7 +12,7 @@
     <h2 class="mb-4">Department List</h2>
 
     <!-- Nút thêm mới khoa -->
-    <a class="btn btn-primary mb-3" th:href="@{/departments/add}">Add New Department</a>
+    <a class="btn btn-primary mb-3" th:href="@{/api/departments/add}">Add New Department</a>
 
     <!-- Bảng danh sách khoa -->
     <table class="table table-bordered">
@@ -39,15 +39,15 @@
             <td th:text="${department.officeLocation}"></td>
             <td>
                 <!-- Link xem các lớp trong khoa -->
-                <a th:href="@{/departments/{departmentId}/classes(departmentId=${department.id})}"
+                <a th:href="@{/api/departments/{departmentId}/classes(departmentId=${department.id})}"
                    class="btn btn-info btn-sm">View Classes</a>
 
                 <!-- Link sửa -->
-                <a th:href="@{/departments/edit/{departmentId}(departmentId=${department.id})}"
+                <a th:href="@{/api/departments/{departmentId}/edit(departmentId=${department.id})}"
                    class="btn btn-warning btn-sm">Edit</a>
 
                 <!-- Link xóa -->
-                <a th:href="@{/departments/delete/{id}(id=${department.id})}"
+                <a th:href="@{/api/departments/{departmentId}/delete(departmentId=${department.id})}"
                    class="btn btn-danger btn-sm"
                    onclick="return confirm('Are you sure to delete this department?');">
                     Delete
